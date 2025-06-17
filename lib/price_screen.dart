@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'coin_data.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
   _PriceScreenState createState() => _PriceScreenState();
 }
+
+String? selectedCurrency;
 
 class _PriceScreenState extends State<PriceScreen> {
   @override
@@ -30,19 +33,38 @@ class _PriceScreenState extends State<PriceScreen> {
                   '1 BTC = ? USD',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 30.0,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
           ),
-          Container(
-            height: 150.0,
-            alignment: Alignment.center,
-            padding: EdgeInsets.only(bottom: 30.0),
-            color: Colors.lightBlue,
-            child: null,
+          Center(
+            child: Container(
+              height: 150.0,
+              alignment: Alignment.center,
+              padding: EdgeInsets.only(bottom: 20.0),
+              color: Colors.black,
+              child: DropdownButton<String>(
+                value: selectedCurrency,
+                hint: Text("Select a currency"),
+                style: TextStyle(fontSize: 30),
+                //isExpanded: true,
+                items: currenciesList.map((String currency) {
+                  return DropdownMenuItem<String>(
+                    value: currency,
+                    child: Text(currency),
+                  );
+                }).toList(),
+                onChanged: (String? newValue) {
+                  setState(() {
+                    selectedCurrency = newValue;
+                    print(newValue);
+                  });
+                },
+              ),
+            ),
           ),
         ],
       ),
